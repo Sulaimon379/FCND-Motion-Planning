@@ -1,8 +1,15 @@
 from enum import Enum
 from queue import PriorityQueue
 import numpy as np
+import utm
 
 
+ def global_to_local(global_position, global_home):    
+	(east_home, north_home, _, _) = utm.from_latlon(global_home[1], global_home[0])		
+	(east, north, _, _) = utm.from_latlon(global_position[1], global_position[0])
+	local_position = numpy.array([north - north_home, east - east_home, -(global_position[2] - global_home[2])])
+		
+	return local_position
 def create_grid(data, drone_altitude, safety_distance):
     """
     Returns a grid representation of a 2D configuration space
