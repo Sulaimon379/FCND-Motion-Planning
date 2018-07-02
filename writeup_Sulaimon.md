@@ -29,15 +29,25 @@ You're reading it! Below I describe how I addressed each rubric point and where 
 #### 1. Explain the functionality of what's provided in `motion_planning.py` and `planning_utils.py`
 These scripts contain a basic planning implementation that includes...
 
-And here's a lovely image of my results (ok this image has nothing to do with it, but it's a nice example of how to include images in your writeup!)
-![Top Down View](./misc/high_up.png)
+The differences between the backyard_flyer_solution.py file and the motion_planning.py file are listed below:
 
-Here's | A | Snappy | Table
---- | --- | --- | ---
-1 | `highlight` | **bold** | 7.41
-2 | a | b | c
-3 | *italic* | text | 403
-4 | 2 | 3 | abcd
+The backyard_flyer_solution.py was written to control a drone to arm, takeoff, transition a drone in through a drone in a square motion, return back to its position, land and disarm. While motion_planning.py was written to control the drone to arm, takeoff, transition following a zig-zag path land and disarm.
+
+The backyard_flyer_solution.py has calculate_box method which is used to produce a fixed square path while
+motion_planning.py has plan_path method which is used to produce the more zig-zag or any path on demand.
+
+The backyard_flyer_solution.py completes its goal by returning to the home position therefore the arming_transition method sets home_position as the target location while the motion_planning.py does not return to the home position therefore the arming_transition method does not set home_position as target location.
+
+The state_callback methods in backyard_flyer_solution.py checks if the drone is armed, then change to take off state if true while state_callback method in motion_planning.py checks if the drone is armed, change to  planning state if true then if it is planning state changes to taking off state.
+
+The motion_planning.py contains a send_waypoints() method, which is used to send waypoints information to the simulator environment for visualization of waypoints while the backyard_flyer_solution.py does not have send_waypoints() method.
+
+The motion_planning.py has an additional State value, PLANNING, which was not implemented in backyard_flyer_solution.py
+
+All State values in motion_planning.py are set by the ENUM auto() method (auto numbering) while all states in backyard_flyer_solution.py are manually numbered (1,2,3,4,5,6).
+
+The takeoff_transition method in the backyard_flyer_solution.py has a fixed target_altitude while the takeoff_transition method does not have fixed target_altitude in the motion_planning.py.
+
 
 ### Implementing Your Path Planning Algorithm
 
