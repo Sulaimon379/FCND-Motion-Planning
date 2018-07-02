@@ -29,7 +29,7 @@ You're reading it! Below I describe how I addressed each rubric point and where 
 #### 1. Explain the functionality of what's provided in `motion_planning.py` and `planning_utils.py`
 These scripts contain a basic planning implementation that includes...
 
-The differences between the backyard_flyer_solution.py file and the motion_planning.py file are listed below:
+#### The differences between the backyard_flyer_solution.py file and the motion_planning.py file are listed below:
 
 The backyard_flyer_solution.py was written to control a drone to arm, takeoff, transition a drone in through a drone in a square motion, return back to its position, land and disarm. While motion_planning.py was written to control the drone to arm, takeoff, transition following a zig-zag path land and disarm.
 
