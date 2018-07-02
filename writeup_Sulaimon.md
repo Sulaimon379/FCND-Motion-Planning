@@ -60,6 +60,8 @@ Here, I set the grid goal as some arbitrary position on the grid and substracted
 
 #### 5. Modify A* to include diagonal motion (or replace A* altogether)
 Here, modified the A* implementation provided in the planning_utils.py to include diagonal motion by creating conditions for actions Action.NW, Action.NE, Action.SW, Action.SE. This is shown below:
+
+
 if x - 1 < 0 or y - 1 < 0 or grid[x-1,y-1] == 1:
         valid_actions.remove(Action.NW)
     if x - 1 < 0 or y + 1 > m or grid[x-1,y+1] == 1:
@@ -75,6 +77,7 @@ In this step, I used a collinearity test to check for collinearity of the points
 creating a matrix that includes the coordinates of these three points as rows, then creating a determiant of these points. The determinant of the points must be equal to epsilon(1e-6) for the points to be collinear.
 The idea is simply to prune the path of unnecessary waypoints.
 The code for the collinearity and path pruning is shown below:
+
 def collinearity_check(p1, p2, p3, epsilon=1e-6): 
     collinear = False
     #Create the matrix out of three points
@@ -86,9 +89,9 @@ def collinearity_check(p1, p2, p3, epsilon=1e-6):
         
     return collinear
 
+	
 def prune_path(path):
     pruned_path = [p for p in path]
-
     i = 0
     while i < len(pruned_path) - 2:
         p1 = pruned_path[i]
