@@ -62,14 +62,14 @@ Here, I set the grid goal as some arbitrary position on the grid and substracted
 Here, modified the A* implementation provided in the planning_utils.py to include diagonal motion by creating conditions for actions Action.NW, Action.NE, Action.SW, Action.SE. This is shown below:
 
 
-if x - 1 < 0 or y - 1 < 0 or grid[x-1,y-1] == 1:
-        valid_actions.remove(Action.NW)
-    if x - 1 < 0 or y + 1 > m or grid[x-1,y+1] == 1:
-        valid_actions.remove(Action.NE)
-    if x + 1 > n or y - 1 < 0 or grid[x+1,y-1] == 1:
-        valid_actions.remove(Action.SW)
-    if x + 1 > n or y + 1 > m or grid[x+1,y+1] == 1:
-        valid_actions.remove(Action.SE)
+	if x - 1 < 0 or y - 1 < 0 or grid[x-1,y-1] == 1:
+			valid_actions.remove(Action.NW)
+		if x - 1 < 0 or y + 1 > m or grid[x-1,y+1] == 1:
+			valid_actions.remove(Action.NE)
+		if x + 1 > n or y - 1 < 0 or grid[x+1,y-1] == 1:
+			valid_actions.remove(Action.SW)
+		if x + 1 > n or y + 1 > m or grid[x+1,y+1] == 1:
+			valid_actions.remove(Action.SE)
 		
 
 #### 6. Cull waypoints 
@@ -78,31 +78,31 @@ creating a matrix that includes the coordinates of these three points as rows, t
 The idea is simply to prune the path of unnecessary waypoints.
 The code for the collinearity and path pruning is shown below:
 
-def collinearity_check(p1, p2, p3, epsilon=1e-6): 
-    collinear = False
-    #Create the matrix out of three points
-    mat = np.vstack((point(p1), point(p2), point(p3)))    
-    det = np.linalg.det(mat)
-    # Set collinear to True if the determinant is less than epsilon
-    if det < epsilon:
-        collinear = True
-        
-    return collinear
+	def collinearity_check(p1, p2, p3, epsilon=1e-6): 
+		collinear = False
+		#Create the matrix out of three points
+		mat = np.vstack((point(p1), point(p2), point(p3)))    
+		det = np.linalg.det(mat)
+		# Set collinear to True if the determinant is less than epsilon
+		if det < epsilon:
+			collinear = True
+			
+		return collinear
 
 	
-def prune_path(path):
-    pruned_path = [p for p in path]
-    i = 0
-    while i < len(pruned_path) - 2:
-        p1 = pruned_path[i]
-        p2 = pruned_path[i+1]
-        p3 = pruned_path[i+2]
+	def prune_path(path):
+		pruned_path = [p for p in path]
+		i = 0
+		while i < len(pruned_path) - 2:
+			p1 = pruned_path[i]
+			p2 = pruned_path[i+1]
+			p3 = pruned_path[i+2]
 
-        if collinearity_check(p1, p2, p3):
-            pruned_path.remove(pruned_path[i+1])
-        else:
-            i += 1
-    return pruned_path
+			if collinearity_check(p1, p2, p3):
+				pruned_path.remove(pruned_path[i+1])
+			else:
+				i += 1
+		return pruned_path
 
 Next, I converted the paths to waypoints, set the waypoints as the value of self.waypoints and finally send the waypoints to the similautor for visualisation. 
 
